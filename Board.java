@@ -17,7 +17,7 @@ class Board {
             if ((i+j) %2 == 0) {
                chessBoard[i][j] = " ";
             } else {
-               chessBoard[i][j] = "#";
+               chessBoard[i][j] = " ##";
             }
          }
       }
@@ -58,7 +58,7 @@ class Board {
    }
 
    public void printChessBoard() {
-      System.out.println(" A B C D E F G H");
+      System.out.println("  A  B  C  D  E  F  G  H");
       for (int i = 0; i < 8; i++){
          System.out.print((8 - i) + " ");
          for (int j = 0; j < 8; j++){
