@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Pieces.Piece;
+import Pieces.Rook;
 
 class Board {
    private Piece[][] chessBoard;

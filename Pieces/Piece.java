@@ -3,9 +3,9 @@ package Pieces;
 import java.util.List;
 
 public abstract class Piece {
-   private String pieceColor;
-   private int row;
-   private int column;
+   protected String pieceColor;
+   protected int row;
+   protected int column;
 
    public Piece(String pieceColor, int row, int column) {
       this.pieceColor = pieceColor;
@@ -15,7 +15,7 @@ public abstract class Piece {
    
    public boolean movePiece(Piece[][] boardPostion, int moveToRow, int moveToColumn) {
       List<int[]> canMoveTo = possibleMoves(boardPostion);
-      for (int[] move : possibleMoves) {
+      for (int[] move : canMoveTo) {   //TAKE A LOOOK AT THIS POSSIBLEMOVES CALL
          if (move[0] == moveToRow && move[1] == moveToColumn) {
             boardPostion[this.row][this.column] = null;
             this.row = moveToRow;
