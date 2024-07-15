@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * King subclass for the Piece class. Handles King specific methods for the Piece class.
+ */
 public class King extends Piece {
    public King(String pieceColor, int row, int column) {
       super(pieceColor, row, column);

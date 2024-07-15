@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Knight subclass for the Piece class. Handles Knight specific methods for the Piece class.
+ */
 public class Knight extends Piece {
    public Knight(String pieceColor, int row, int column) {
       super(pieceColor, row, column);

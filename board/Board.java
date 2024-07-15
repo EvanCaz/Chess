@@ -1,25 +1,30 @@
+package board;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import Pieces.Piece;
-import Pieces.Rook;
-import Pieces.Knight;
-import Pieces.Bishop;
-import Pieces.Queen;
-import Pieces.King;
-import Pieces.Pawn;
+import board.pieces.*;
 
-class Board {
+/**
+ * Represents the chessboard. This class manages the board output and state.
+ */
+public class Board {
    private Piece[][] chessBoard;
    private List<Piece> capturedPieces;
 
+   /**
+    * Creates an empty board and calls the board initializer.
+    */
    public Board() {
       chessBoard = new Piece[8][8];
       initializeChessBoard();
       capturedPieces = new ArrayList<>();
    }
-
-   public void initializeChessBoard() {
+   
+   /**
+    * Initializes the board with all pieces in their starting location.
+    */
+   private void initializeChessBoard() {
       
       chessBoard[0][0] = new Rook("black", 0, 0);
       chessBoard[0][1] = new Knight("black", 0, 1);
@@ -47,7 +52,10 @@ class Board {
         chessBoard[6][i] = new Pawn("white", 6, i);
      }
    }
-
+   
+   /**
+    * Prints the current state of the chessboard to the console.
+    */
    public void printChessBoard() {
       System.out.println("  A  B  C  D  E  F  G  H");
       for (int i = 0; i < 8; i++){
@@ -68,14 +76,20 @@ class Board {
       }
       System.out.println();
    }
-
+   
+   /**
+    * Keeps a running list of pieces that have been captured.
+    * @param piece
+    */
    public void addCapturedPiece(Piece piece) {
       capturedPieces.add(piece);
    }
    
+   /**
+    * Returns a list of pieces that have been captured.
+    * @return a list of captured pieces.
+    */
    public List<Piece> getCapturedPieces() {
       return capturedPieces;
    }
 }
-
-// Test comment to check and see if I branched correctly and can push to github repo

@@ -1,4 +1,4 @@
-
+import board.Board;
 
 public class BoardTester {
    public static void main(String[] args) {

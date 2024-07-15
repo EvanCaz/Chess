@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Rook subclass for the Piece class. Handles Rook specific methods for the Piece class.
+ */
 public class Rook extends Piece {
    public Rook(String pieceColor, int row, int column) {
       super(pieceColor, row, column);

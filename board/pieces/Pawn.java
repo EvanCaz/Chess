@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Pawn subclass for the Piece class. Handles Pawn specific methods for the Piece class.
+ */
 public class Pawn extends Piece {
    private boolean firstMove;
 

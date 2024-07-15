@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Queen subclass for the Piece class. Handles Queen specific methods for the Piece class.
+ */
 public class Queen extends Piece {
    public Queen(String pieceColor, int row, int column) {
       super(pieceColor, row, column);

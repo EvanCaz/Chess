@@ -1,8 +1,11 @@
-package Pieces;
+package board.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bishop subclass for the Piece class. Handles Bishop specific methods for the Piece class.
+ */
 public class Bishop extends Piece {
    public Bishop(String pieceColor, int row, int column) {
       super(pieceColor, row, column);
