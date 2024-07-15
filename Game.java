@@ -1,8 +1,8 @@
 class Game {
     // attributes include Board, Both Players, and CurTurn
     public Board gameBoard; // game board
-    // public Player playerW;
-    // public Player playerB; 
+    public Player playerW;
+    public Player playerB; 
     public int curTurn;
     public Utils funcs;
     
@@ -11,9 +11,14 @@ class Game {
     */
     // constructor/desctructor
     public Game() {
+        playerW = new Player();
+        playerB = new Player();
+        playerW.color = 1;
+        playerB.color = 0;
         curTurn = 1;
         gameBoard = new Board();
         funcs = new Utils();
+
     }
 
     // Methods include start, end, play, and check
@@ -23,6 +28,10 @@ class Game {
          * ends says do u wanna play again and calls start
          * 
         */
+        System.out.println("Player one will begin as White, and player Two will be black.");
+        System.out.println("The pieces will be labeled as follows: Pawn's are wp for white and bp for black, Kings are wK for white and bK for black, and so forth for the rest of the pieces.");
+        System.out.println("Moves will be entered as 'E4 E7', where to first location is source location and second is destination.");
+        System.out.println();
         play();
     }
 
@@ -38,25 +47,21 @@ class Game {
          * checks if input is valid, but not if a vaid move
          * starts over, probably maintained while the method end returns true
         */ 
-        
-        
-        System.out.println("Player one will begin as White, and player Two will be black.");
-        System.out.println("The pieces will be labeled as follows: Pawn's are wp for white and bp for black, Kings are wK for white and bK for black, and so forth for the rest of the pieces.");
-        System.out.println("Moves will be entered as 'E4 E7', where to first location is source location and second is destination.");
-        System.out.println();
-        
+        String move;
         boolean end = end(); // this and the line below can be combined
         while(end == false){ 
             // the loop
             gameBoard.printChessBoard();
             if(curTurn == 1){
                 System.out.print("Player one ");
-                funcs.moveValidation();
+                move = funcs.moveValidation();
+                playerW.makeMove(move, gameBoard);
                 curTurn = 0;
                 // gets the move and passes it to Player obejct method makeMove()
             } else if (curTurn == 0){
                 System.out.print("Player Two ");
-                funcs.moveValidation();
+                move = funcs.moveValidation();
+                // playerB.makeMove(move, gameBoard);
                 curTurn = 1;
                 // gets the move and passes it to Player obejct method makeMove()
             }
