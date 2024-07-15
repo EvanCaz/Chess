@@ -3,6 +3,11 @@ import java.util.List;
 
 import Pieces.Piece;
 import Pieces.Rook;
+import Pieces.Knight;
+import Pieces.Bishop;
+import Pieces.Queen;
+import Pieces.King;
+import Pieces.Pawn;
 
 class Board {
    private Piece[][] chessBoard;
@@ -26,7 +31,7 @@ class Board {
       chessBoard[0][7] = new Rook("black", 0, 7);
 
       for (int i = 0; i < 8; i++){   //Initializes all 8 black pawns with a for loop
-         chessBoard[1][i] = new Pawn("Black", 1, i);
+         chessBoard[1][i] = new Pawn("black", 1, i);
       }
 
       chessBoard[7][0] = new Rook("white", 7, 0);
@@ -39,7 +44,7 @@ class Board {
       chessBoard[7][7] = new Rook("white", 7, 7);
 
       for (int i = 0; i < 8; i++){   //Initializes all 8 white pawns with a for loop
-        chessBoard[6][i] = Pawn("White", 6, i);
+        chessBoard[6][i] = new Pawn("white", 6, i);
      }
    }
 
@@ -52,10 +57,10 @@ class Board {
             if (boardSpace != null) {
                System.out.print(boardSpace.getIcon() + " ");
             } else {
-               if ((i + j) % 2 == 0) {
-                  System.out.print(" ##");
+               if ((i + j) % 2 == 1) {
+                  System.out.print("## ");
                } else {
-                  System.out.print(" ");
+                  System.out.print("   ");
                }
             }
          }

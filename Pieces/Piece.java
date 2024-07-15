@@ -15,7 +15,7 @@ public abstract class Piece {
    
    public boolean movePiece(Piece[][] boardPostion, int moveToRow, int moveToColumn) {
       List<int[]> canMoveTo = possibleMoves(boardPostion);
-      for (int[] move : canMoveTo) {   //TAKE A LOOOK AT THIS POSSIBLEMOVES CALL
+      for (int[] move : canMoveTo) {
          if (move[0] == moveToRow && move[1] == moveToColumn) {
             boardPostion[this.row][this.column] = null;
             this.row = moveToRow;

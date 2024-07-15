@@ -3,20 +3,20 @@ package Pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends Piece {
-   public Rook(String pieceColor, int row, int column) {
+public class Bishop extends Piece {
+   public Bishop(String pieceColor, int row, int column) {
       super(pieceColor, row, column);
    }
 
    @Override
    public String getIcon() {
-      return pieceColor.charAt(0) + "R";
+    return pieceColor.charAt(0) + "B";
    }
 
    @Override
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
-      int[][] directions = { {1, 0}, {-1, 0}, {0,1}, {0, -1} };
+      int[][] directions = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
       for (int[] direction : directions) {
          int moveRow = row;
@@ -27,14 +27,12 @@ public class Rook extends Piece {
             if (isInBounds(moveRow, moveColumn)) {
                if (boardPosition[moveRow][moveColumn] == null) {
                   moves.add(new int[]{moveRow, moveColumn});
+               } else if (!boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
+                  moves.add(new int[]{moveRow, moveColumn});
+                  break;
                } else {
-                  if (!boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
-                    moves.add(new int[]{moveRow, moveColumn});
-                  }
                   break;
                }
-            } else {
-               break;
             }
          }
 
