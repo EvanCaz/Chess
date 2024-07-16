@@ -3,6 +3,8 @@ package board.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import board.Board;
+
 /**
  * King subclass for the Piece class. Handles King specific methods for the Piece class.
  */
@@ -21,23 +23,15 @@ public class King extends Piece {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = {
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-
+      Board board = new Board();
+      
       for (int[] direction : directions) {
          int moveRow = direction[0];
          int moveColumn = direction[1];
-         if (isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
+         if (board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
             moves.add(new int[]{moveRow, moveColumn});
          }
       }
       return moves;
    }
-
-   private boolean isInBounds(int row, int column) {
-      if (row >= 0 && row < 8 && column >= 0 && column < 8) {
-        return true;
-      } else {
-        return false;
-      }
-   }
-
 }

@@ -46,6 +46,22 @@ public abstract class Piece {
    }
    
    /**
+    * Gets the row of a piece object.
+    * @return row of piece object.
+    */
+   public int getRow() {
+      return row;
+   }
+
+   /**
+    * Gets the column of a piece object.
+    * @return column of piece object.
+    */
+   public int getColumn() {
+      return column;
+   }
+
+   /**
     * Gets the color.
     *
     * @return color of the piece.

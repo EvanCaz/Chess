@@ -52,7 +52,7 @@ public class Board {
         chessBoard[6][i] = new Pawn("white", 6, i);
      }
    }
-   
+
    /**
     * Prints the current state of the chessboard to the console.
     */
@@ -77,6 +77,39 @@ public class Board {
       System.out.println();
    }
    
+   public boolean isInBounds(int row, int column) {
+      return row >= 0 && row < 8 && column >= 0 && column < 8;
+   }
+
+   /**
+    * Helper method to move pieces. Uses 
+    * @param fromRow
+    * @param fromColumn
+    * @param toRow
+    * @param toColumn
+    * @return true if move was valid and completed, false otherwise.
+    */
+   public boolean movePiece(int fromRow, int fromColumn, int toRow, int toColumn) {
+      Piece pieceToMove = getPieceAt(fromRow, fromColumn);
+      if (pieceToMove != null) {
+         return pieceToMove.movePiece(chessBoard, toRow, toColumn);
+      }
+      return false;
+   }
+
+   /**
+    * Gets a piece at a specific position.
+    * @param row
+    * @param column
+    * @return a Piece object.
+    */
+   public Piece getPieceAt(int row, int column) {
+      if (isInBounds(row, column)){
+         return chessBoard[row][column];
+      }
+      return null;
+   }
+
    /**
     * Keeps a running list of pieces that have been captured.
     * @param piece
