@@ -3,6 +3,8 @@ package board.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import board.Board;
+
 /**
  * Rook subclass for the Piece class. Handles Rook specific methods for the Piece class.
  */
@@ -20,6 +22,7 @@ public class Rook extends Piece {
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = { {1, 0}, {-1, 0}, {0,1}, {0, -1} };
+      Board board = new Board();
 
       for (int[] direction : directions) {
          int moveRow = row;
@@ -27,7 +30,7 @@ public class Rook extends Piece {
          while (true) {
             moveRow =+ direction[0];
             moveColumn =+ direction[1];
-            if (isInBounds(moveRow, moveColumn)) {
+            if (board.isInBounds(moveRow, moveColumn)) {
                if (boardPosition[moveRow][moveColumn] == null) {
                   moves.add(new int[]{moveRow, moveColumn});
                } else {
@@ -44,13 +47,4 @@ public class Rook extends Piece {
       }
       return moves;
    }
-
-   private boolean isInBounds(int row, int column) {
-      if (row >= 0 && row < 8 && column >= 0 && column < 8) {
-        return true;
-      } else {
-        return false;
-      }
-   }
-
 }
