@@ -1,3 +1,5 @@
+import board.Board;
+
 class Game {
     // attributes include Board, Both Players, and CurTurn
     public Board gameBoard; // game board
@@ -55,7 +57,9 @@ class Game {
             if(curTurn == 1){
                 System.out.print("Player one ");
                 move = funcs.moveValidation();
+                // System.out.print("Debug statement, is move being passed and shit: " + move);
                 playerW.makeMove(move, gameBoard);
+                // System.out.print("Debug statement, is move being passed and shit: " + move);
                 curTurn = 0;
                 // gets the move and passes it to Player obejct method makeMove()
             } else if (curTurn == 0){
