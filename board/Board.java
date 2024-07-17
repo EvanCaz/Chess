@@ -83,10 +83,7 @@ public class Board {
 
    /**
     * Helper method to move pieces. Uses 
-    * @param fromRow
-    * @param fromColumn
-    * @param toRow
-    * @param toColumn
+    * @param int[] array indicating columns and rows
     * @return true if move was valid and completed, false otherwise.
     */
    public boolean movePiece(int[] moveIndices) {
