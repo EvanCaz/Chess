@@ -37,8 +37,7 @@ class Player {
 
     public void makeMove(String move, Board gameBoard){ 
         
-        // move = funcs.stringToIndex(move); // stringtoindex not on my branch
-        // gameBoard.makeMove(move);  // does not work rn because stringtoindex is not on my branch
+        gameBoard.movePiece(funcs.stringToIndex(move));  // does not work rn because stringtoindex is not on my branch
 
 
 
