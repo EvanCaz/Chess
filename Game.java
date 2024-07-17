@@ -32,8 +32,9 @@ class Game {
          * ends says do u wanna play again and calls start
          * 
         */
+        System.out.println();
         System.out.println("Player one will begin as White, and player Two will be black.");
-        System.out.println("The pieces will be labeled as follows: Pawn's are wp for white and bp for black, Kings are wK for white and bK for black, and so forth for the rest of the pieces.");
+        System.out.println("The pieces will be labeled as follows: Pawn's are wP for white and bP for black, Kings are wK for white and bK for black, and so forth for the rest of the pieces.");
         System.out.println("Moves will be entered as 'E4 E7', where to first location is source location and second is destination.");
         System.out.println();
         play();
@@ -64,15 +65,14 @@ class Game {
             // the loop
             gameBoard.printChessBoard();
             if(curTurn == 1){
-                System.out.print("Player one ");
-                move = funcs.moveValidation();
-                playerW.makeMove(move, gameBoard);
+                System.out.print("Player One ");
+                // move = funcs.moveValidation();
+                playerW.makeMove(gameBoard);
                 gameOver = end(curTurn); // does game countine, and before curTurn is alternated so correct color is passed to check game ending event
                 curTurn = 0;
             } else if (curTurn == 0){
                 System.out.print("Player Two ");
-                move = funcs.moveValidation();
-                playerB.makeMove(move, gameBoard);
+                playerB.makeMove(gameBoard);
                 gameOver = end(curTurn); 
                 curTurn = 1;
             }
