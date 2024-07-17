@@ -24,12 +24,11 @@ public class Knight extends Piece {
       int[][] directions = { 
         {2, 1}, {2, -1}, {-2,1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
       };
-      Board board = new Board();
 
       for (int[] direction : directions) {
          int moveRow = row + direction[0];
          int moveColumn = column + direction[1];
-         if (board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
+         if (Board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
             moves.add(new int[]{moveRow, moveColumn});
          }
       }

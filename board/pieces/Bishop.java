@@ -21,8 +21,6 @@ public class Bishop extends Piece {
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
-
-      Board board = new Board();
       
       for (int[] direction : directions) {
           int moveRow = row;
@@ -30,7 +28,7 @@ public class Bishop extends Piece {
           while (true) {
               moveRow += direction[0];
               moveColumn += direction[1];
-              if (board.isInBounds(moveRow, moveColumn)) {
+              if (Board.isInBounds(moveRow, moveColumn)) {
                   if (boardPosition[moveRow][moveColumn] == null) {
                       moves.add(new int[]{moveRow, moveColumn});
                   } else if (!boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {

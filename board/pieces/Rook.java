@@ -22,15 +22,14 @@ public class Rook extends Piece {
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = { {1, 0}, {-1, 0}, {0,1}, {0, -1} };
-      Board board = new Board();
 
       for (int[] direction : directions) {
          int moveRow = row;
          int moveColumn = column;
          while (true) {
-            moveRow =+ direction[0];
-            moveColumn =+ direction[1];
-            if (board.isInBounds(moveRow, moveColumn)) {
+            moveRow += direction[0];
+            moveColumn += direction[1];
+            if (Board.isInBounds(moveRow, moveColumn)) {
                if (boardPosition[moveRow][moveColumn] == null) {
                   moves.add(new int[]{moveRow, moveColumn});
                } else {

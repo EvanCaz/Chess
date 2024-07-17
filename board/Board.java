@@ -77,7 +77,7 @@ public class Board {
       System.out.println();
    }
    
-   public boolean isInBounds(int row, int column) {
+   public static boolean isInBounds(int row, int column) {
       return row >= 0 && row < 8 && column >= 0 && column < 8;
    }
 
@@ -92,6 +92,10 @@ public class Board {
    public boolean movePiece(int fromRow, int fromColumn, int toRow, int toColumn) {
       Piece pieceToMove = getPieceAt(fromRow, fromColumn);
       if (pieceToMove != null) {
+         Piece moveToSpace = getPieceAt(toRow, toColumn);
+         if (moveToSpace != null && !moveToSpace.getColor().equals(pieceToMove.getColor())) {
+            addCapturedPiece(moveToSpace);
+         }      
          return pieceToMove.movePiece(chessBoard, toRow, toColumn);
       }
       return false;

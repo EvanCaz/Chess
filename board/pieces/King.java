@@ -23,12 +23,11 @@ public class King extends Piece {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = {
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-      Board board = new Board();
       
       for (int[] direction : directions) {
          int moveRow = direction[0];
          int moveColumn = direction[1];
-         if (board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
+         if (Board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
             moves.add(new int[]{moveRow, moveColumn});
          }
       }
