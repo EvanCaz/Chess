@@ -1,5 +1,6 @@
 package board.pieces;
 
+import board.Board;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,11 +44,11 @@ public class Pawn extends Piece {
         int moveRow = row + directions;
         int moveColumn = column;
 
-        if (isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] == null) {
+        if (Board.isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] == null) {
             moves.add(new int[]{moveRow, moveColumn});
             if (firstMove) {
                 moveRow += directions;
-                if (isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] == null) {
+                if (Board.isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] == null) {
                     moves.add(new int[]{moveRow, moveColumn});
                 }
             }
@@ -57,14 +58,10 @@ public class Pawn extends Piece {
         for (int[] direction : captureMoves) {
             moveRow = row + direction[0];
             moveColumn = column + direction[1];
-            if (isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] != null && !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
+            if (Board.isInBounds(moveRow, moveColumn) && boardPosition[moveRow][moveColumn] != null && !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
                 moves.add(new int[]{moveRow, moveColumn});
             }
         }
         return moves;
-    }
-
-    private boolean isInBounds(int row, int column) {
-        return row >= 0 && row < 8 && column >= 0 && column < 8;
     }
 }

@@ -55,7 +55,7 @@ public abstract class Piece {
 
    /**
     * Gets the column of a piece object.
-    * @return column of piece object.
+    * @return column of piece object
     */
    public int getColumn() {
       return column;
