@@ -89,7 +89,12 @@ public class Board {
     * @param toColumn
     * @return true if move was valid and completed, false otherwise.
     */
-   public boolean movePiece(int fromRow, int fromColumn, int toRow, int toColumn) {
+   public boolean movePiece(int[] moveIndices) {
+      int fromColumn = moveIndices[0];
+      int fromRow = moveIndices[1];
+      int toColumn = moveIndices[2];
+      int toRow = moveIndices[3];
+      
       Piece pieceToMove = getPieceAt(fromRow, fromColumn);
       if (pieceToMove != null) {
          Piece moveToSpace = getPieceAt(toRow, toColumn);
