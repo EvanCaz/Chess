@@ -7,12 +7,14 @@ class Player {
     // Attributes
     public int color; // 1 for white, 0 for black
     public List<Piece> availPieces;
+    private Utils funcs;
 
     // Methods
     public Player() {
         availPieces = new ArrayList<>();
-        if (color == 1) { // White pieces
-            availPieces.add(new Rook("White", 0, 0 ));
+        funcs = new Utils();
+        // if (color == 1) { // White pieces
+        //     availPieces.add(new Rook("White", 0, 0 ));
         //     availPieces.add(new Knight
         //     availPieces.add(new Bishop
         //     availPieces.add(new Queen
@@ -29,16 +31,21 @@ class Player {
         //     availPieces.add(new Bishop
         //     availPieces.add(new Knight
         //     availPieces.add(new Rook
-        }
+        // }
     }
 
 
-    public void makeMove(String move, Board gameBoard){ // move is alr validated
-        // makes the move, probably calls gameBoard.movePiece or sum
-        String source = move.substring(0,2);
-        String destination = move.substring(3);
+    public void makeMove(String move, Board gameBoard){ 
+        
+        // move = funcs.stringToIndex(move); // stringtoindex not on my branch
+        // gameBoard.makeMove(move);  // does not work rn because stringtoindex is not on my branch
 
-        System.out.println("Source: " + source + ". Destination: " + destination);
+
+
+        // String source = move.substring(0,2);
+        // String destination = move.substring(3);
+
+        // System.out.println("Source: " + source + ". Destination: " + destination);
         // System.out.print(source + " :TEST " + destination);
         // System.out.print("TESTING TESTING");
     }
