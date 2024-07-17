@@ -62,7 +62,7 @@ public class Board {
          System.out.print((8 - i) + " ");
          for (int j = 0; j < 8; j++){
             Piece boardSpace = chessBoard[i][j];
-            if (boardSpace != null) {
+            if (boardSpace != null) { 
                System.out.print(boardSpace.getIcon() + " ");
             } else {
                if ((i + j) % 2 == 1) {
@@ -92,9 +92,9 @@ public class Board {
       int toColumn = moveIndices[2];
       int toRow = moveIndices[3];
       
-      Piece pieceToMove = getPieceAt(fromRow, fromColumn);
+      Piece pieceToMove = getPieceAt(fromColumn, fromRow); //changed to match the method
       if (pieceToMove != null) {
-         Piece moveToSpace = getPieceAt(toRow, toColumn);
+         Piece moveToSpace = getPieceAt(toColumn, toRow); //changed to match the method
          if (moveToSpace != null && !moveToSpace.getColor().equals(pieceToMove.getColor())) {
             addCapturedPiece(moveToSpace);
          }      
@@ -105,11 +105,13 @@ public class Board {
 
    /**
     * Gets a piece at a specific position.
-    * @param row
+    *Takes that input in [column][row] to match chess notation, and returns in [row][column] to
+    *match matrix notation.
     * @param column
+    * @param row
     * @return a Piece object.
     */
-   public Piece getPieceAt(int row, int column) {
+   public Piece getPieceAt(int column, int row) {
       if (isInBounds(row, column)){
          return chessBoard[row][column];
       }
