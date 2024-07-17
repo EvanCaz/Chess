@@ -7,6 +7,7 @@ class Game {
     public Player playerB; 
     public int curTurn;
     public Utils funcs;
+    private boolean gameOver;
     
     /* no player classes yet, so to avoid it is commented out
      * 1 for w 0 for b, cuz w starts first, maybe should be static accross all Game objects idk
@@ -20,6 +21,7 @@ class Game {
         curTurn = 1;
         gameBoard = new Board();
         funcs = new Utils();
+        gameOver = false;
 
     }
 
@@ -37,9 +39,17 @@ class Game {
         play();
     }
 
-    public boolean end() {
+    public boolean end(int color) {
         // ends the game, is probably called when a game ending condition is met
-        return false;
+        // color: 1 = white, 0 = black
+        
+        // if(gameBoard.isCheckmate(color)){
+        //     System.out.println("Player X's King is murdered, Congratualtions Player X, you have won.");
+        //     gameOver = true;
+        // } else if(gameBoard.check(color)){
+        //     System.out.println("Player X's King is in danger, move him now");
+        // }
+        return gameOver;
     }
 
     public void play() {
@@ -50,27 +60,25 @@ class Game {
          * starts over, probably maintained while the method end returns true
         */ 
         String move;
-        boolean end = end(); // this and the line below can be combined
-        while(end == false){ 
+        while(gameOver == false){ 
             // the loop
             gameBoard.printChessBoard();
             if(curTurn == 1){
                 System.out.print("Player one ");
                 move = funcs.moveValidation();
-                // System.out.print("Debug statement, is move being passed and shit: " + move);
                 playerW.makeMove(move, gameBoard);
-                // System.out.print("Debug statement, is move being passed and shit: " + move);
+                gameOver = end(curTurn); // does game countine, and before curTurn is alternated so correct color is passed to check game ending event
                 curTurn = 0;
-                // gets the move and passes it to Player obejct method makeMove()
             } else if (curTurn == 0){
                 System.out.print("Player Two ");
                 move = funcs.moveValidation();
-                // playerB.makeMove(move, gameBoard);
+                playerB.makeMove(move, gameBoard);
+                gameOver = end(curTurn); 
                 curTurn = 1;
-                // gets the move and passes it to Player obejct method makeMove()
             }
-            end = end(); // does game countine?
+
         }
+        // when end becomes true, print winner and whatnot
     
     }
 }
