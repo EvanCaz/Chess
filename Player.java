@@ -43,9 +43,11 @@ class Player {
             move = funcs.moveValidation(); // makes sure it is in correct form, now we check if it is a piece that the player owns, and is a possible move
             int[] locations = funcs.stringToIndex(move);
             Piece curPiece = gameBoard.getPieceAt(locations[0], locations[1]);
-            System.out.println("Test: " + curPiece.getColor());
+            // System.out.println("Test color print: " + curPiece.getColor() + " : " + curPiece.getIcon());
             if (color == 1) {
+                // System.out.println("Test inside if color  == 1");
                 if (curPiece.getColor().charAt(0) == 'w') {
+                    // System.out.println("Test inside if piece color == w");
                     if (!gameBoard.movePiece(locations)) {
                         System.out.println("The move you made was bad dummy.");
                     } else {
