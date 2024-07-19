@@ -65,13 +65,13 @@ class Game {
             // the loop
             gameBoard.printChessBoard();
             if(curTurn == 1){
-                System.out.print("Player One ");
+                System.out.println("--------Player One--------");
                 // move = funcs.moveValidation();
                 playerW.makeMove(gameBoard);
                 gameOver = end(curTurn); // does game countine, and before curTurn is alternated so correct color is passed to check game ending event
                 curTurn = 0;
             } else if (curTurn == 0){
-                System.out.print("Player Two ");
+                System.out.println(" -------Player Two--------");
                 playerB.makeMove(gameBoard);
                 gameOver = end(curTurn); 
                 curTurn = 1;

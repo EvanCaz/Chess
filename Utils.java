@@ -7,7 +7,7 @@ public class Utils {
         String move = ""; 
         boolean valid = false;
         
-        System.out.println("please enter your move: ");
+        System.out.print("Please enter your move: ");
         while(!valid){
             move = scnr.nextLine().trim();
             if(move.matches(pattern)){

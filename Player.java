@@ -48,6 +48,7 @@ class Player {
             // System.out.println("Test color print: " + curPiece.getColor() + " : " + curPiece.getIcon());
             if (color == 1) {
                 // System.out.println("Test inside if color  == 1");
+                try {
                 if (curPiece.getColor().charAt(0) == 'w') {
                     // System.out.println("Test inside if piece color == w");
                     if (!gameBoard.movePiece(locations)) {
@@ -55,11 +56,18 @@ class Player {
                     } else {
                         goodMove = true;
                         System.out.println("Successful move.");
+                        System.out.println("--------------------------");
+                        System.out.println();
                     }
                 } else {
                     System.out.println("You cannot move that piece.");
                 }
+            } catch (NullPointerException e) {
+                System.out.println("You tried to move a space that did not contain a piece.");
+            }
+
             } else if (color == 0) {
+                try {
                 if (curPiece.getColor().charAt(0) == 'b') { // assuming color 0 is for black pieces
                     if (!gameBoard.movePiece(locations)) {
                         System.out.println("The move you made was bad dummy.");
@@ -70,6 +78,9 @@ class Player {
                 } else {
                     System.out.println("You cannot move that piece.");
                 }
+            } catch (NullPointerException e){ 
+                System.out.println("You tried to move a space that did not contain a piece.");
+            }
             }
         }
     }
