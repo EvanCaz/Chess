@@ -5,7 +5,7 @@ import board.pieces.*;
 
 class Player {
     // Attributes
-    public int color; // 1 for white, 0 for black
+    private int color; // 1 for white, 0 for black
     public List<Piece> availPieces;
     private Utils funcs;
     String move;
@@ -15,7 +15,7 @@ class Player {
         availPieces = new ArrayList<>();
         funcs = new Utils();
         if (color == 1) { // White pieces
-            availPieces.add(new Rook("White", 0, 0 ));
+                // availPieces.add(new Rook("White", 0, 0 ));
         //     availPieces.add(new Knight
         //     availPieces.add(new Bishop
         //     availPieces.add(new Queen
@@ -33,8 +33,10 @@ class Player {
         //     availPieces.add(new Knight
         //     availPieces.add(new Rook
         }
+    }  
+    public void setColor(int x) {
+        color = x;
     }
-
 
     public void makeMove(Board gameBoard) {
         // need to make sure the source piece is one avail to the player, the dest piece is one that can be taken, and the source is not an empty spot

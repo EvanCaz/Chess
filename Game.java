@@ -16,8 +16,8 @@ class Game {
     public Game() {
         playerW = new Player();
         playerB = new Player();
-        playerW.color = 1;
-        playerB.color = 0;
+        playerW.setColor(1);
+        playerB.setColor(0);
         curTurn = 1;
         gameBoard = new Board();
         funcs = new Utils();
