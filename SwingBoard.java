@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class SwingBoard {
     private static final String[] UNICODE_PIECES = {
         "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
         "\u265A", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"
     };
+
+    private static JPanel currentlySelectedPanel = null;
 
     public static void main(String[] args) {
         // Create the main frame for the chess board
@@ -38,7 +39,7 @@ public class SwingBoard {
                     panelSquare.setBackground(darkColor);
                 }
 
-                // Add mouse event listeners for highlighting
+                // Add mouse event listeners for highlighting and clicking shi
                 panelSquare.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -47,7 +48,14 @@ public class SwingBoard {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        panelSquare.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                        if (panelSquare != currentlySelectedPanel) {
+                            panelSquare.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                        }
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleMouseClick(panelSquare);
                     }
                 });
 
@@ -84,5 +92,13 @@ public class SwingBoard {
             return UNICODE_PIECES[5 + ((row == 1) ? 0 : 6)];
         }
         return "";
+    }
+
+    private static void handleMouseClick(JPanel panelSquare) {
+        if (currentlySelectedPanel != null) {
+            currentlySelectedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+        panelSquare.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+        currentlySelectedPanel = panelSquare;
     }
 }
