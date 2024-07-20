@@ -8,7 +8,8 @@ public class SwingBoard {
         "\u265A", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"
     };
 
-    private static JPanel currentlySelectedPanel = null;
+    private static JPanel firstPanel = null;
+    private static JPanel secondPanel = null;
 
     public static void main(String[] args) {
         // Create the main frame for the chess board
@@ -43,20 +44,23 @@ public class SwingBoard {
                 panelSquare.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        panelSquare.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+                        if (panelSquare != firstPanel) {
+                            panelSquare.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+                        }
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        if (panelSquare != currentlySelectedPanel) {
+                        if (panelSquare != firstPanel) {
                             panelSquare.setBorder(BorderFactory.createLineBorder(Color.GRAY));
                         }
                     }
 
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        handleMouseClick(panelSquare);
+                        handleClick(panelSquare);
                     }
+                    
                 });
 
                 panelSquare.add(square);
@@ -94,11 +98,32 @@ public class SwingBoard {
         return "";
     }
 
-    private static void handleMouseClick(JPanel panelSquare) {
-        if (currentlySelectedPanel != null) {
-            currentlySelectedPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    private static void handleClick(JPanel panelSquare) {
+        if (firstPanel != null) {
+            firstPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            secondPanel = panelSquare;
+            movePiece(firstPanel, secondPanel);
         }
-        panelSquare.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
-        currentlySelectedPanel = panelSquare;
+        panelSquare.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        firstPanel = panelSquare;
+        secondPanel = null;
     }
+    private static void movePiece(JPanel first, JPanel second) {
+        JLabel firstLabel = (JLabel) first.getComponent(0);
+        JLabel secondLabel = (JLabel) second.getComponent(0);
+
+        if (!firstLabel.getText().isEmpty() && secondLabel.getText().isEmpty()) {
+            secondLabel.setText(firstLabel.getText());
+            firstLabel.setText("");
+            firstPanel = null;
+            secondPanel = null;
+        } else {
+            System.out.println("Cant do that");
+            firstPanel = null;
+            secondPanel = null;
+        }
+        firstPanel = null;
+        secondPanel = null;
+    }
+    
 }
