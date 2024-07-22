@@ -33,7 +33,7 @@ public class Pawn extends Piece {
 
     @Override
     public String getIcon() {
-        return pieceColor.charAt(0) + "P";
+        return pieceColor.equals("white") ? "\u2659" : "\u265F";
     }
 
     @Override

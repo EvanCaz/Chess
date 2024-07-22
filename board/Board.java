@@ -56,6 +56,7 @@ public class Board {
    /**
     * Prints the current state of the chessboard to the console.
     */
+
    public void printChessBoard() {
       System.out.println("  A  B  C  D  E  F  G  H");
       for (int i = 0; i < 8; i++){

@@ -15,7 +15,7 @@ public class Rook extends Piece {
 
    @Override
    public String getIcon() {
-      return pieceColor.charAt(0) + "R";
+      return pieceColor.equals("white") ? "\u2656" : "\u265C";
    }
 
    @Override

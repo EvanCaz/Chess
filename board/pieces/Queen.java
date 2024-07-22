@@ -15,7 +15,7 @@ public class Queen extends Piece {
 
    @Override
    public String getIcon() {
-    return pieceColor.charAt(0) + "Q";
+      return pieceColor.equals("white") ? "\u2655" : "\u265B";
    }
 
    @Override
