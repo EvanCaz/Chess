@@ -1,17 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import board.Board;
+import board.pieces.Piece;
 
 public class SwingBoard {
-    private static final String[] UNICODE_PIECES = {
-        "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
-        "\u265A", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"
-    };
-
     private static JPanel firstPanel = null;
     private static JPanel secondPanel = null;
+    private static Board board = new Board();
+    private static JPanel[][] panelTracker = new JPanel[8][8];
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         // Create the main frame for the chess board
         JFrame frame = new JFrame("Chess Board");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +38,8 @@ public class SwingBoard {
                 } else {
                     panelSquare.setBackground(darkColor);
                 }
+
+                panelTracker[row][col] = panelSquare; //Updates panelTracker with new panel
 
                 // Add mouse event listeners for highlighting and clicking shi
                 panelSquare.addMouseListener(new MouseAdapter() {
@@ -72,58 +73,88 @@ public class SwingBoard {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        updateBoard();
     }
 
+    /**
+     * Method to get the icon associated with a piece at a board position.
+     * 
+     * @param row
+     * @param col
+     * @return a unicode piece of type String
+     */
     private static String getPieceUnicode(int row, int col) {
-        if (row == 0 || row == 7) {
-            int offset = (row == 0) ? 0 : 6;
-            switch (col) {
-                case 0:
-                case 7:
-                    return UNICODE_PIECES[2 + offset];
-                case 1:
-                case 6:
-                    return UNICODE_PIECES[4 + offset];
-                case 2:
-                case 5:
-                    return UNICODE_PIECES[3 + offset];
-                case 3:
-                    return UNICODE_PIECES[1 + offset];
-                case 4:
-                    return UNICODE_PIECES[0 + offset];
-            }
-        } else if (row == 1 || row == 6) {
-            return UNICODE_PIECES[5 + ((row == 1) ? 0 : 6)];
+        Piece piece = board.getPieceAt(col, row);
+        if (piece != null) {
+           return piece.getIcon();
         }
         return "";
     }
 
     private static void handleClick(JPanel panelSquare) {
-        if (firstPanel != null) {
+        if (firstPanel == null) { //selecting the panel
+            firstPanel = panelSquare;
+            firstPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        } else if (firstPanel == panelSquare) { //deslecting a clicked piece
             firstPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            firstPanel = null;
+        } else {
             secondPanel = panelSquare;
             movePiece(firstPanel, secondPanel);
+            firstPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            secondPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            firstPanel = null;
+            secondPanel = null;
         }
-        panelSquare.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
-        firstPanel = panelSquare;
-        secondPanel = null;
     }
+    
+    /**
+     * Moves the pieces on the board, calls the Board classes movePiece method to handle validation.
+     * 
+     * @param first
+     * @param second
+     */
     private static void movePiece(JPanel first, JPanel second) {
-        JLabel firstLabel = (JLabel) first.getComponent(0);
-        JLabel secondLabel = (JLabel) second.getComponent(0);
-
-        if (!firstLabel.getText().isEmpty() && secondLabel.getText().isEmpty()) {
-            secondLabel.setText(firstLabel.getText());
-            firstLabel.setText("");
-            firstPanel = null;
-            secondPanel = null;
+        Point fromPoint = getPanelIndicies(first);
+        Point toPoint = getPanelIndicies(second);
+        int[] moveIndices = { fromPoint.x, fromPoint.y, toPoint.x, toPoint.y };
+        if (board.movePiece(moveIndices)) {
+            System.out.println("Move was successful");
+            updateBoard();
         } else {
-            System.out.println("Cant do that");
-            firstPanel = null;
-            secondPanel = null;
+            System.out.println("Can't do that");
         }
-        firstPanel = null;
-        secondPanel = null;
+    }
+    
+    /**
+     * Helper Method to find the index of a panel, to pass to other methods interacting with the 
+     * Board or Piece classes.
+     * 
+     * @param panel
+     * @return a Point object with indicies of a panel if it can be found, returns null otherwise.
+     */
+    private static Point getPanelIndicies(JPanel panel) {
+        for (int row = 0; row < 8; row++) {
+           for (int col = 0; col < 8; col++) {
+              if (panelTracker[row][col] == panel) {
+                 return new Point(col, row); // (col, row) to satisfy board's movePiece method() 
+              }
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Method to update the GUI representation of the board.
+     */
+    private static void updateBoard() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+               JLabel label= (JLabel) panelTracker[row][col].getComponent(0);
+               label.setText(getPieceUnicode(row, col));
+            }
+        }
     }
     
 }
