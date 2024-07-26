@@ -73,7 +73,7 @@ public abstract class Piece {
    /**
     * Abstract method that gets the icon. Different for each subclass.
     *
-    * @return the icon of the piece.
+    * @return the icon of the piece in unicode for a GUI implementation.
     */
    public abstract String getIcon();
    

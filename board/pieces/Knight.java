@@ -15,7 +15,7 @@ public class Knight extends Piece {
 
    @Override
    public String getIcon() {
-      return pieceColor.charAt(0) + "N";
+      return pieceColor.equals("white") ? "\u2658" : "\u265E";
    }
 
    @Override

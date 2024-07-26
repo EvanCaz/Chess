@@ -15,7 +15,7 @@ public class King extends Piece {
 
    @Override
    public String getIcon() {
-    return pieceColor.charAt(0) + "K";
+    return pieceColor.equals("white") ? "\u2654" : "\u265A";
    }
 
    @Override

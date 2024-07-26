@@ -14,13 +14,13 @@ public class Bishop extends Piece {
 
    @Override
    public String getIcon() {
-    return pieceColor.charAt(0) + "B";
+    return pieceColor.equals("white") ? "\u2657" : "\u265D";
    }
 
    @Override
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
-      int[][] directions = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+      int[][] directions = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} }; 
       
       for (int[] direction : directions) {
           int moveRow = row;
