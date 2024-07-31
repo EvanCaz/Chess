@@ -10,7 +10,7 @@ import board.pieces.*;
  */
 public class Board {
    private Piece[][] chessBoard;
-   private List<Piece> capturedPieces;
+   //private List<Piece> blockPieces;
    private int[] whiteKingPosition;
    private int[] blackKingPosition;
 
@@ -20,7 +20,7 @@ public class Board {
    public Board() {
       chessBoard = new Piece[8][8];
       initializeChessBoard();
-      capturedPieces = new ArrayList<>();
+      //blockPieces = new ArrayList<>(); // WEEEEE WEEEEE WOOOOOO
    }
    
    /**
@@ -57,32 +57,6 @@ public class Board {
         chessBoard[6][i] = new Pawn("white", 6, i);
      }
    }
-
-   /**
-    * Prints the current state of the chessboard to the console.
-    * MAY NEED TO BE DELETED BEFORE SUBMITION
-    */
-
-   // public void printChessBoard() {
-   //    System.out.println("  A  B  C  D  E  F  G  H");
-   //    for (int i = 0; i < 8; i++){
-   //       System.out.print((8 - i) + " ");
-   //       for (int j = 0; j < 8; j++){
-   //          Piece boardSpace = chessBoard[i][j];
-   //          if (boardSpace != null) { 
-   //             System.out.print(boardSpace.getIcon() + " ");
-   //          } else {
-   //             if ((i + j) % 2 == 1) {
-   //                System.out.print("## ");
-   //             } else {
-   //                System.out.print("   ");
-   //             }
-   //          }
-   //       }
-   //       System.out.println();
-   //    }
-   //    System.out.println();
-   // }
    
    public static boolean isInBounds(int row, int column) {
       return row >= 0 && row < 8 && column >= 0 && column < 8;
@@ -99,7 +73,6 @@ public class Board {
       int toColumn = moveIndices[2];
       int toRow = moveIndices[3];
       boolean moveSuccessful = false;
-      Piece moveToSpace = getPieceAt(toColumn, toRow);
       
       Piece pieceToMove = getPieceAt(fromColumn, fromRow);
       if (pieceToMove != null && pieceToMove instanceof King) {
@@ -108,26 +81,21 @@ public class Board {
          
          if (isInCheck(kingColor)) {
             setKingPostion(pieceToMove, fromRow, fromColumn);
-            return moveSuccessful; //move postion would be in check, return false
+            return moveSuccessful; 
          }
 
          moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); // calls movePiece
 
          if (!moveSuccessful) {
-            setKingPostion(pieceToMove, fromRow, fromColumn); //move invalid reset king postion
-         } else if (moveSuccessful && moveToSpace != null) { //checking for a catpture
-            addCapturedPiece(moveToSpace);
+            setKingPostion(pieceToMove, fromRow, fromColumn); 
          }
          
          return moveSuccessful;
-         //moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn);
 
       } else if (pieceToMove != null) {
-         moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); //calls move piece
+         moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); 
          
-         if (moveSuccessful && moveToSpace != null) { //checking for a capture
-            addCapturedPiece(moveToSpace);
-         }
+
          return moveSuccessful;
       }
       return moveSuccessful;
@@ -149,21 +117,22 @@ public class Board {
       return null;
    }
 
-   /**
-    * Keeps a running list of pieces that have been captured.
-    * @param piece
-    */
-   public void addCapturedPiece(Piece piece) {
-      capturedPieces.add(piece);
-   }
+   // /**
+   //  * Creates a list of pieces that can block a check.
+   //  * @param piece
+   //  */
+   // public void addBlockPiece(Piece piece) {
+   //    blockPieces.add(piece);
+   // }
    
-   /**
-    * Returns a list of pieces that have been captured.
-    * @return a list of captured pieces.
-    */
-   public List<Piece> getCapturedPieces() {
-      return capturedPieces;
-   }
+   // /**
+   //  * Returns a list of pieces that can block
+   //  * @return a list of captured pieces.
+   //  */
+   // public List<Piece> getBlockPieces() { 
+   //    return blockPieces;
+   //    blockPieces.clear();
+   // }
 
    /**
     * Returns the position[row][column] of the king piece given the color

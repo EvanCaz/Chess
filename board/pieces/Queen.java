@@ -25,23 +25,22 @@ public class Queen extends Piece {
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
       for (int[] direction : directions) {
-         int moveRow = row;
-         int moveColumn = column;
-         while (true) {
+         int moveRow = row + direction[0];
+         int moveColumn = column + direction[1];
+         while (Board.isInBounds(moveRow, moveColumn)) {
+            if (boardPosition[moveRow][moveColumn] == null) {
+                moves.add(new int[]{moveRow, moveColumn});
+            } else if (!boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
+                moves.add(new int[]{moveRow, moveColumn});
+                break;
+            } else {
+                break;
+            }
             moveRow += direction[0];
             moveColumn += direction[1];
-            if (Board.isInBounds(moveRow, moveColumn)) {
-               if (boardPosition[moveRow][moveColumn] == null) {
-                  moves.add(new int[]{moveRow, moveColumn});
-               } else if (!boardPosition[moveRow][moveColumn].getColor().equals(pieceColor)) {
-                  moves.add(new int[]{moveRow, moveColumn});
-                  break;
-               } else {
-                  break;
-               }
-            }
          }
       }
-      return moves;
+
+    return moves;
    }
 }
