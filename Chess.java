@@ -71,7 +71,7 @@ public static void main(String[] args) {
     }
 
     // Set the font for the turn label
-    turnLabel.setFont(new Font("Old English Text MT", Font.BOLD, 24));
+    turnLabel.setFont(new Font("Serif", Font.BOLD, 24));
     frame.add(boardPanel, BorderLayout.CENTER);
     frame.add(turnLabel, BorderLayout.SOUTH); // Add the turn label at the bottom
     frame.pack();
@@ -123,8 +123,6 @@ private static void movePiece(JPanel first, JPanel second) {
     Point fromPoint = getPanelIndicies(first);
     Point toPoint = getPanelIndicies(second);
 
-    System.out.println("From: " + fromPoint);
-    System.out.println("To: " + toPoint);
     int[] indicies = {fromPoint.x, fromPoint.y, toPoint.x, toPoint.y};
     boolean moveSuccessful = false;
 
@@ -146,13 +144,21 @@ private static void movePiece(JPanel first, JPanel second) {
 }
 
 /**
- * Method to update the turn label.
+ * update the turn label.
  */
 private static void updateTurnLabel() {
     if (turn == 1) {
-        turnLabel.setText("White's Turn");
-    } else {
-        turnLabel.setText("Black's Turn");
+        if(board.isInCheck("white")){
+            turnLabel.setText("<html>White's Turn<br>You are in check!</html>");
+        } else {
+        turnLabel.setText("White's Turn"); 
+        }
+    } else if (turn == 0) {
+        if(board.isInCheck("black")){
+            turnLabel.setText("<html>Black's Turn<br>You are in check!</html>");
+        } else {
+        turnLabel.setText("Black's Turn"); 
+        }
     }
 }
 
