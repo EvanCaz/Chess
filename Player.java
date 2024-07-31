@@ -14,26 +14,8 @@ class Player {
     public Player() {
         availPieces = new ArrayList<>();
         funcs = new Utils();
-        if (color == 1) { // White pieces
-                // availPieces.add(new Rook("White", 0, 0 ));
-        //     availPieces.add(new Knight
-        //     availPieces.add(new Bishop
-        //     availPieces.add(new Queen
-        //     availPieces.add(new King
-        //     availPieces.add(new Bishop
-        //     availPieces.add(new Knight
-        //     availPieces.add(new Rook
-        // } else { // Black pieces
-        //     availPieces.add(new Rook
-        //     availPieces.add(new Knight
-        //     availPieces.add(new Bishop
-        //     availPieces.add(new Queen
-        //     availPieces.add(new King
-        //     availPieces.add(new Bishop
-        //     availPieces.add(new Knight
-        //     availPieces.add(new Rook
-        }
     }  
+    
     public void setColor(int x) {
         color = x;
     }

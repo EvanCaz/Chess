@@ -44,12 +44,11 @@ class Game {
         // ends the game, is probably called when a game ending condition is met
         // color: 1 = white, 0 = black
         
-        // if(gameBoard.isCheckmate(color)){
-        //     System.out.println("Player X's King is murdered, Congratualtions Player X, you have won.");
-        //     gameOver = true;
-        // } else if(gameBoard.check(color)){
-        //     System.out.println("Player X's King is in danger, move him now");
-        // }
+        if(color == 1){ // white
+            gameOver = gameBoard.isInCheck("white");
+        } else { // black;
+            gameOver = gameBoard.isInCheck("black");
+        }
         return gameOver;
     }
 
@@ -63,7 +62,7 @@ class Game {
         String move;
         while(gameOver == false){ 
             // the loop
-            gameBoard.printChessBoard();
+            // gameBoard.printChessBoard();
             if(curTurn == 1){
                 System.out.println("--------Player One--------");
                 // move = funcs.moveValidation();
