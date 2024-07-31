@@ -89,40 +89,50 @@ public class Board {
    }
 
    /**
-    * Helper method to move pieces. And updates the new positions of the King instances.
+    * Helper method to move pieces. Updates the new positions of the King instances.
     * @param int[] array indicating columns and rows
     * @return true if move was valid and completed, false otherwise.
     */
-   public boolean movePiece(int[] moveIndices) {
+    public boolean movePiece(int[] moveIndices) {
       int fromColumn = moveIndices[0];
       int fromRow = moveIndices[1];
       int toColumn = moveIndices[2];
       int toRow = moveIndices[3];
+      boolean moveSuccessful = false;
+      Piece moveToSpace = getPieceAt(toColumn, toRow);
       
-      Piece pieceToMove = getPieceAt(fromColumn, fromRow); //changed to match the method
-      if (pieceToMove != null) {
-         Piece moveToSpace = getPieceAt(toColumn, toRow); //changed to match the method
-         if (moveToSpace != null && !moveToSpace.getColor().equals(pieceToMove.getColor())) {
-            addCapturedPiece(moveToSpace);
-         }      
+      Piece pieceToMove = getPieceAt(fromColumn, fromRow);
+      if (pieceToMove != null && pieceToMove instanceof King) {
+         String kingColor = pieceToMove.getColor();
+         setKingPostion(pieceToMove, toRow, toColumn);
          
-         boolean moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn);//calls to move
-         if (moveSuccessful) {
-            if (pieceToMove instanceof King) {
-               if (pieceToMove.getColor().equals("white")) {
-                  whiteKingPosition[0] = toRow;
-                  whiteKingPosition[1] = toColumn;
-              } else {
-                  blackKingPosition[0] = toRow;
-                  blackKingPosition[1] = toColumn;
-               }
-            }
+         if (isInCheck(kingColor)) {
+            setKingPostion(pieceToMove, fromRow, fromColumn);
+            return moveSuccessful; //move postion would be in check, return false
+         }
+
+         moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); // calls movePiece
+
+         if (!moveSuccessful) {
+            setKingPostion(pieceToMove, fromRow, fromColumn); //move invalid reset king postion
+         } else if (moveSuccessful && moveToSpace != null) { //checking for a catpture
+            addCapturedPiece(moveToSpace);
          }
          
          return moveSuccessful;
+         //moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn);
+
+      } else if (pieceToMove != null) {
+         moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); //calls move piece
+         
+         if (moveSuccessful && moveToSpace != null) { //checking for a capture
+            addCapturedPiece(moveToSpace);
+         }
+         return moveSuccessful;
       }
-      return false;
+      return moveSuccessful;
    }
+
 
    /**
     * Gets a piece at a specific position.
@@ -162,6 +172,17 @@ public class Board {
     */
    public int[] getKingPosition(String kingColor) {
       return kingColor.equals("white") ? whiteKingPosition : blackKingPosition;
+   }
+
+   private void setKingPostion(Piece kingPiece, int row, int column) {
+      if (kingPiece.getColor().equals("white")) {
+         whiteKingPosition[0] = row;
+         whiteKingPosition[1] = column;
+      } else {
+         blackKingPosition[0] = row;
+         blackKingPosition[1] = column;
+      }
+      
    }
    
    /**
