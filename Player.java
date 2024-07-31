@@ -8,7 +8,7 @@ class Player {
     private int color; // 1 for white, 0 for black
     public List<Piece> availPieces;
     private Utils funcs;
-    String move;
+    private String move;
 
     // Methods
     public Player() {

@@ -119,11 +119,13 @@ public class SwingBoard {
         Point fromPoint = getPanelIndicies(first);
         Point toPoint = getPanelIndicies(second);
         int[] moveIndices = { fromPoint.x, fromPoint.y, toPoint.x, toPoint.y };
-        if (board.movePiece(moveIndices)) {
+
+        boolean moveSuccessful = board.movePiece(moveIndices);
+        if (moveSuccessful) {
             System.out.println("Move was successful");
             updateBoard();
         } else {
-            System.out.println("Can't do that");
+            System.out.println("Move was not successful or invalid");
         }
     }
     
@@ -151,7 +153,7 @@ public class SwingBoard {
     private static void updateBoard() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-               JLabel label= (JLabel) panelTracker[row][col].getComponent(0);
+               JLabel label = (JLabel) panelTracker[row][col].getComponent(0);
                label.setText(getPieceUnicode(row, col));
             }
         }

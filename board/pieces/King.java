@@ -24,9 +24,10 @@ public class King extends Piece {
       int[][] directions = {
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
       
+      
       for (int[] direction : directions) {
-         int moveRow = direction[0];
-         int moveColumn = direction[1];
+         int moveRow = row + direction[0];
+         int moveColumn = column + direction[1];
          if (Board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
             moves.add(new int[]{moveRow, moveColumn});
          }
