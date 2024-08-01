@@ -1,6 +1,5 @@
 package board;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import board.pieces.*;
@@ -10,7 +9,6 @@ import board.pieces.*;
  */
 public class Board {
    private Piece[][] chessBoard;
-   //private List<Piece> blockPieces;
    private int[] whiteKingPosition;
    private int[] blackKingPosition;
 
@@ -20,7 +18,6 @@ public class Board {
    public Board() {
       chessBoard = new Piece[8][8];
       initializeChessBoard();
-      //blockPieces = new ArrayList<>(); // WEEEEE WEEEEE WOOOOOO
    }
    
    /**
@@ -75,19 +72,25 @@ public class Board {
       boolean moveSuccessful = false;
       
       Piece pieceToMove = getPieceAt(fromColumn, fromRow);
+      Piece moveToSpace = getPieceAt(toColumn, toRow);
       if (pieceToMove != null && pieceToMove instanceof King) {
          String kingColor = pieceToMove.getColor();
+         if (moveToSpace != null) {
+            chessBoard[toRow][toColumn] = null;
+         }
          setKingPostion(pieceToMove, toRow, toColumn);
          
          if (isInCheck(kingColor)) {
             setKingPostion(pieceToMove, fromRow, fromColumn);
+            chessBoard[toRow][toColumn] = moveToSpace;
             return moveSuccessful; 
          }
 
          moveSuccessful = pieceToMove.movePiece(chessBoard, toRow, toColumn); // calls movePiece
 
          if (!moveSuccessful) {
-            setKingPostion(pieceToMove, fromRow, fromColumn); 
+            setKingPostion(pieceToMove, fromRow, fromColumn);
+            chessBoard[toRow][toColumn] = moveToSpace;
          }
          
          return moveSuccessful;
@@ -117,22 +120,6 @@ public class Board {
       return null;
    }
 
-   // /**
-   //  * Creates a list of pieces that can block a check.
-   //  * @param piece
-   //  */
-   // public void addBlockPiece(Piece piece) {
-   //    blockPieces.add(piece);
-   // }
-   
-   // /**
-   //  * Returns a list of pieces that can block
-   //  * @return a list of captured pieces.
-   //  */
-   // public List<Piece> getBlockPieces() { 
-   //    return blockPieces;
-   //    blockPieces.clear();
-   // }
 
    /**
     * Returns the position[row][column] of the king piece given the color
@@ -160,23 +147,23 @@ public class Board {
     * @param kingColor
     * @return true if the king is in check, false otherwise.
     */
-   public boolean isInCheck(String kingColor) {
+    public boolean isInCheck(String kingColor) {
       int[] kingSpace = kingColor.equals("white") ? whiteKingPosition : blackKingPosition;
       for (int i = 0; i < 8; i++) {
-         for (int j = 0; j < 8; j++) {
-            Piece checkPiece = chessBoard[i][j];
-            if (checkPiece != null && !checkPiece.getColor().equals(kingColor)) {
-               List<int[]> possibleMoves = checkPiece.possibleMoves(chessBoard);
-               for  (int[] move : possibleMoves) {
-                  if (move[0] == kingSpace[0] && move[1] == kingSpace[1]) {
-                     return true;
+          for (int j = 0; j < 8; j++) {
+              Piece checkPiece = chessBoard[i][j];
+              if (checkPiece != null && !checkPiece.getColor().equals(kingColor)) {
+                  List<int[]> possibleMoves = checkPiece.possibleMoves(chessBoard);
+                  for (int[] move : possibleMoves) {
+                      if (move[0] == kingSpace[0] && move[1] == kingSpace[1]) {
+                          return true;
+                      }
                   }
-               }
-            }
-         }
+              }
+          }
       }
       return false;
-   }
+  }
    
    /**
     * Checks if a king is in check mate status, based on if it's in check, if it can move, or if

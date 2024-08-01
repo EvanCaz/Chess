@@ -138,29 +138,10 @@ private static void movePiece(JPanel first, JPanel second) {
 
     if (moveSuccessful) { 
         turn = 1 - turn; // switch 1 to 0 or 0 to 1
-        updateTurnLabel(); // 
+        updateTurnLabel();
         updateBoard();
     }
 }
-
-/**
- * update the turn label with isincheck and checkmate but this slows down drastically
- */
-// private static void updateTurnLabel() {
-//     if (turn == 1) {
-//         if(board.isInCheck("white")){
-//             turnLabel.setText("<html>White's Turn<br>You are in check!</html>");
-//         } else {
-//         turnLabel.setText("White's Turn"); 
-//         }
-//     } else if (turn == 0) {
-//         if(board.isInCheck("black")){
-//             turnLabel.setText("<html>Black's Turn<br>You are in check!</html>");
-//         } else {
-//         turnLabel.setText("Black's Turn"); 
-//         }
-//     }
-// }
 
 private static void updateTurnLabel() {
     if (turn == 1) {
@@ -181,14 +162,6 @@ private static void updateTurnLabel() {
         }
     }
 }
-
-// private static void updateTurnLabel() {
-//     if (turn == 1) {
-//         turnLabel.setText("White's Turn");
-//     } else {
-//         turnLabel.setText("Black's Turn");
-//     }
-// }
 
 
 /**
@@ -220,9 +193,4 @@ private static void updateBoard() {
         }
     }
 }
-
-/**
- * Method to update the turn label.
- */
-
 }
