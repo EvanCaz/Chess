@@ -164,11 +164,31 @@ private static void movePiece(JPanel first, JPanel second) {
 
 private static void updateTurnLabel() {
     if (turn == 1) {
-        turnLabel.setText("White's Turn");
-    } else {
-        turnLabel.setText("Black's Turn");
+        if(board.isInCheck("white") && !board.isInCheckMate("white")){
+            turnLabel.setText("<html>White's Turn<br>You are in check!</html>");
+        } else if (board.isInCheckMate("white")) {
+            turnLabel.setText("<html>Checkmate! Black wins!</html>");
+        } else {
+        turnLabel.setText("White's Turn"); 
+        }
+    } else if (turn == 0) {
+        if(board.isInCheck("black") && !board.isInCheckMate("black")){
+            turnLabel.setText("<html>Black's Turn<br>You are in check!</html>");
+        } else if (board.isInCheckMate("black")) {  
+            turnLabel.setText("<html>Checkmate! White wins!</html>");
+        }else {
+        turnLabel.setText("Black's Turn"); 
+        }
     }
 }
+
+// private static void updateTurnLabel() {
+//     if (turn == 1) {
+//         turnLabel.setText("White's Turn");
+//     } else {
+//         turnLabel.setText("Black's Turn");
+//     }
+// }
 
 
 /**
