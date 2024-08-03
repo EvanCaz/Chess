@@ -137,7 +137,7 @@ private static void movePiece(JPanel first, JPanel second) {
         if ((turn == 1 && piece.getColor().equals("white")) && (board.isInCheck("white") == false) && (board.isInCheckMate("white") == false) || (turn == 0 && piece.getColor().equals("black")) && (board.isInCheck("black") == false) && (board.isInCheckMate("white") == false)) {
             moveSuccessful = board.movePiece(indicies);
         } else if (board.isInCheck("white") == true || board.isInCheck("black") == true){
-            
+            // need to check and see if the move you make keeps check status
         } 
         
     } catch (NullPointerException e) {
@@ -194,8 +194,7 @@ public static void showMoves(JPanel x) {
     Point point = getPanelIndicies(x);
     int[] indicies = {point.x, point.y};
     Piece piece = board.getPieceAt(indicies[0], indicies[1]);
-    if (piece == null) return; 
-    
+    if (piece == null) return;
     
     List<int[]> moves = piece.possibleMoves(board.chessboardAccessor());
     
