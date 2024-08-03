@@ -73,7 +73,7 @@ public static void main(String[] args) {
     }
 
     // Set the font for the turn label
-    turnLabel.setFont(new Font("Serif", Font.ITALIC, 24));
+    turnLabel.setFont(new Font("Serif", Font.BOLD, 24));
     frame.add(boardPanel, BorderLayout.CENTER);
     frame.add(turnLabel, BorderLayout.SOUTH); // Add the turn label at the bottom
     frame.pack();
