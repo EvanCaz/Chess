@@ -22,24 +22,16 @@ public class King extends Piece {
    public List<int[]> possibleMoves(Piece[][] boardPosition) {
       List<int[]> moves = new ArrayList<>();
       int[][] directions = {
-          {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} 
-      };
+        {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+      
       
       for (int[] direction : directions) {
-          int moveRow = row + direction[0];
-          int moveColumn = column + direction[1];
-          
-          // Check if the position is within bounds of the board
-          if (Board.isInBounds(moveRow, moveColumn)) {
-              Piece targetPiece = boardPosition[moveRow][moveColumn];
-              
-              // Check if the target position is either empty or occupied by an opponent's piece
-              if (targetPiece == null || !targetPiece.getColor().equals(this.getColor())) {
-                  moves.add(new int[]{moveRow, moveColumn});
-              }
-          }
+         int moveRow = row + direction[0];
+         int moveColumn = column + direction[1];
+         if (Board.isInBounds(moveRow, moveColumn) && (boardPosition[moveRow][moveColumn] == null || !boardPosition[moveRow][moveColumn].getColor().equals(pieceColor))) {
+            moves.add(new int[]{moveRow, moveColumn});
+         }
       }
-      
       return moves;
-  }
+   }
 }
