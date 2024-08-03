@@ -19,6 +19,10 @@ public class Board {
       chessBoard = new Piece[8][8];
       initializeChessBoard();
    }
+
+   public Piece[][] chessboardAccessor() {
+      return chessBoard;
+   }
    
    /**
     * Initializes the board with all pieces in their starting location.
