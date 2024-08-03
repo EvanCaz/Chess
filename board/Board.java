@@ -75,7 +75,7 @@ public class Board {
       Piece moveToSpace = getPieceAt(toColumn, toRow);
       if (pieceToMove != null && pieceToMove instanceof King) {
          String kingColor = pieceToMove.getColor();
-         if (moveToSpace != null) {
+         if (moveToSpace != null && !moveToSpace.getColor().equals(pieceToMove.getColor())) {
             chessBoard[toRow][toColumn] = null;
          }
          setKingPostion(pieceToMove, toRow, toColumn);
