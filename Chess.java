@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import board.Board;
 import board.pieces.Piece;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Chess {
     private static JPanel firstPanel = null;
@@ -100,14 +102,17 @@ private static void handleClick(JPanel panelSquare) {
     if (firstPanel == null) { // Selecting the panel
         firstPanel = panelSquare;
         firstPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        showMoves(firstPanel);
     } else if (firstPanel == panelSquare) { // Deselecting a clicked piece
         firstPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        hideMoves();
         firstPanel = null;
     } else {
         secondPanel = panelSquare;
         movePiece(firstPanel, secondPanel);
         firstPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         secondPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        hideMoves();
         firstPanel = null;
         secondPanel = null;
     }
@@ -122,16 +127,19 @@ private static void handleClick(JPanel panelSquare) {
 private static void movePiece(JPanel first, JPanel second) {
     Point fromPoint = getPanelIndicies(first);
     Point toPoint = getPanelIndicies(second);
+    
 
     int[] indicies = {fromPoint.x, fromPoint.y, toPoint.x, toPoint.y};
     boolean moveSuccessful = false;
 
     try {
         Piece piece = board.getPieceAt(indicies[0], indicies[1]);
-        if ((turn == 1 && piece.getColor().equals("white")) ||
-            (turn == 0 && piece.getColor().equals("black"))) {
+        if ((turn == 1 && piece.getColor().equals("white")) && (board.isInCheck("white") == false) && (board.isInCheckMate("white") == false) || (turn == 0 && piece.getColor().equals("black")) && (board.isInCheck("black") == false) && (board.isInCheckMate("white") == false)) {
             moveSuccessful = board.movePiece(indicies);
-        }
+        } else if (board.isInCheck("white") == true || board.isInCheck("black") == true){
+            
+        } 
+        
     } catch (NullPointerException e) {
         System.out.println("Null space was clicked or an invalid color was clicked");
     }
@@ -181,6 +189,40 @@ private static Point getPanelIndicies(JPanel panel) {
     }
     return null;
 }
+
+public static void showMoves(JPanel x) {
+    Point point = getPanelIndicies(x);
+    int[] indicies = {point.x, point.y};
+    Piece piece = board.getPieceAt(indicies[0], indicies[1]);
+    if (piece == null) return; 
+    
+    
+    List<int[]> moves = piece.possibleMoves(board.chessboardAccessor());
+    
+    for (int[] move : moves) {
+        int moveRow = move[0];
+        int moveCol = move[1];
+        
+
+        if (moveRow >= 0 && moveRow < 8 && moveCol >= 0 && moveCol < 8) {
+            JPanel movePanel = panelTracker[moveRow][moveCol];
+            movePanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+        }
+    }
+}
+
+private static void hideMoves() {
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            JPanel panel = panelTracker[row][col];
+            panel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Reset to default border
+        }
+    }
+}
+
+
+
+
 
 /**
  * Method to update the GUI representation of the board.
