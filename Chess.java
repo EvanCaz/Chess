@@ -202,11 +202,8 @@ public static void showMoves(JPanel x) {
         int moveRow = move[0];
         int moveCol = move[1];
         
-
-        if (moveRow >= 0 && moveRow < 8 && moveCol >= 0 && moveCol < 8) {
             JPanel movePanel = panelTracker[moveRow][moveCol];
             movePanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
-        }
     }
 }
 
