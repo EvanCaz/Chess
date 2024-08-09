@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 import board.Board;
@@ -48,14 +50,14 @@ public static void main(String[] args) {
             panelSquare.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    if (panelSquare != firstPanel) {
+                    if (panelSquare != firstPanel && !(panelSquare.getBorder() instanceof LineBorder && ((LineBorder) panelSquare.getBorder()).getLineColor().equals(Color.GREEN))) {
                         panelSquare.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
                     }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    if (panelSquare != firstPanel) {
+                    if (panelSquare != firstPanel && !(panelSquare.getBorder() instanceof LineBorder && ((LineBorder) panelSquare.getBorder()).getLineColor().equals(Color.GREEN))) {
                         panelSquare.setBorder(BorderFactory.createLineBorder(Color.GRAY));
                     }
                 }
