@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import board.Board;
 import board.pieces.Piece;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Chess {
