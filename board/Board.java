@@ -11,6 +11,7 @@ public class Board {
    private Piece[][] chessBoard;
    private int[] whiteKingPosition;
    private int[] blackKingPosition;
+   private Piece capturedPiece;
 
    /**
     * Creates an empty board and calls the board initializer.
@@ -74,6 +75,8 @@ public class Board {
       int toColumn = moveIndices[2];
       int toRow = moveIndices[3];
       boolean moveSuccessful = false;
+
+      capturedPiece = chessBoard[toColumn][toRow];
       
       Piece pieceToMove = getPieceAt(fromColumn, fromRow);
       Piece moveToSpace = getPieceAt(toColumn, toRow);
@@ -230,5 +233,9 @@ public class Board {
          }
       }
       return true; //all conditions for a checkmate were false
+   }
+
+   public void test(){
+      System.out.println(capturedPiece);
    }
 }
