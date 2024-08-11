@@ -2,7 +2,7 @@
 #
 # Team Members: Evan Cazares, Jonathan Spivey
 #
-# This project is a chess game, designed as multiple classes coming together to create a a graphical user interface.
+# This project is a chess game, designed as multiple classes coming together to create a a graphical user interface. It was completed after semester end by Evan Cazares
 #
 # Instructions:
 # 1. Map to the drive where this repository is located.
