@@ -240,7 +240,7 @@ public class Board {
       return true; //all conditions for a checkmate were false
    }
 
-   public boolean test(String color, int[] indicies){
+   public boolean revert(String color, int[] indicies){
       boolean status = true;
       if(capturedPiece != null) {
          System.out.println(capturedPiece.getColor());

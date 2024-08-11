@@ -14,10 +14,10 @@ public class Chess {
     private static JPanel[][] panelTracker = new JPanel[8][8];
     private static int turn = 1; // 1 for white, 0 for black
     private static JLabel turnLabel = new JLabel("White's Turn", JLabel.CENTER); // Label to display the turn
+    private static JFrame frame = new JFrame("Chess Board");
 
 public static void main(String[] args) {
     // Create the main frame for the chess board
-    JFrame frame = new JFrame("Chess Board");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLayout(new BorderLayout());
 
@@ -135,11 +135,17 @@ private static void movePiece(JPanel first, JPanel second) {
 
     try {
         Piece piece = board.getPieceAt(indicies[0], indicies[1]);
-        if ((turn == 1 && piece.getColor().equals("white")) && (board.isInCheck("white") == false) && (board.isInCheckMate("white") == false) || (turn == 0 && piece.getColor().equals("black")) && (board.isInCheck("black") == false) && (board.isInCheckMate("white") == false)) {
+        if(board.isInCheckMate("white") || board.isInCheckMate("black")){
+            // terminate the game
+            System.out.println("test");
+            JOptionPane.showMessageDialog(null, "Checkmate! Game Over.");
+            frame.setEnabled(false); // Disable the entire frame to prevent further interaction
+            return;
+        } else if ((turn == 1 && piece.getColor().equals("white")) && (board.isInCheck("white") == false) || (turn == 0 && piece.getColor().equals("black")) && (board.isInCheck("black") == false)) {
             moveSuccessful = board.movePiece(indicies);
         } else if (board.isInCheck("white") == true || board.isInCheck("black") == true){
             moveSuccessful = board.movePiece(indicies);
-            if(board.test("white", indicies) == true || board.test("black", indicies) == true){
+            if(board.revert("white", indicies) == true || board.revert("black", indicies) == true){
                 moveSuccessful = false;
             }
         
@@ -158,19 +164,15 @@ private static void movePiece(JPanel first, JPanel second) {
 
 private static void updateTurnLabel() {
     if (turn == 1) {
-        if(board.isInCheck("white") && !board.isInCheckMate("white")){
+        if(board.isInCheck("white") && !board.isInCheckMate("white")){ // isincheckmate here does not do anything
             turnLabel.setText("<html>White's Turn<br>You are in check!</html>");
-        } else if (board.isInCheckMate("white")) {
-            turnLabel.setText("<html>Checkmate! Black wins!</html>");
         } else {
         turnLabel.setText("White's Turn"); 
         }
     } else if (turn == 0) {
         if(board.isInCheck("black") && !board.isInCheckMate("black")){
             turnLabel.setText("<html>Black's Turn<br>You are in check!</html>");
-        } else if (board.isInCheckMate("black")) {  
-            turnLabel.setText("<html>Checkmate! White wins!</html>");
-        }else {
+        } else {
         turnLabel.setText("Black's Turn"); 
         }
     }
