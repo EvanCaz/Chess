@@ -137,7 +137,7 @@ private static void movePiece(JPanel first, JPanel second) {
         Piece piece = board.getPieceAt(indicies[0], indicies[1]);
         if(board.isInCheckMate("white") || board.isInCheckMate("black")){
             // terminate the game
-            System.out.println("test");
+            System.out.println("test'");
             JOptionPane.showMessageDialog(null, "Checkmate! Game Over.");
             frame.setEnabled(false); // Disable the entire frame to prevent further interaction
             return;
@@ -164,16 +164,16 @@ private static void movePiece(JPanel first, JPanel second) {
 
 private static void updateTurnLabel() {
     if (turn == 1) {
-        if(board.isInCheck("white") && !board.isInCheckMate("white")){ // isincheckmate here does not do anything
-            turnLabel.setText("<html>White's Turn<br>You are in check!</html>");
+        if (board.isInCheck("white") && !board.isInCheckMate("white")) { 
+            turnLabel.setText("White's Turn, in check.");
         } else {
-        turnLabel.setText("White's Turn"); 
+            turnLabel.setText("White's Turn"); 
         }
     } else if (turn == 0) {
-        if(board.isInCheck("black") && !board.isInCheckMate("black")){
-            turnLabel.setText("<html>Black's Turn<br>You are in check!</html>");
+        if (board.isInCheck("black") && !board.isInCheckMate("black")) {
+            turnLabel.setText("Black's Turn, in check.");
         } else {
-        turnLabel.setText("Black's Turn"); 
+            turnLabel.setText("Black's Turn"); 
         }
     }
 }
