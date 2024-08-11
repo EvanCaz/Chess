@@ -11,7 +11,8 @@ public class Board {
    private Piece[][] chessBoard;
    private int[] whiteKingPosition;
    private int[] blackKingPosition;
-   private Piece capturedPiece;
+
+   private Piece capturedPiece; // for reverting if still in check
 
    /**
     * Creates an empty board and calls the board initializer.
@@ -76,7 +77,11 @@ public class Board {
       int toRow = moveIndices[3];
       boolean moveSuccessful = false;
 
-      capturedPiece = chessBoard[toColumn][toRow];
+      capturedPiece = chessBoard[toRow][toColumn]; // for reverting a move
+      // for(int i = 0; i < 4; i++){
+      //    System.out.print(moveIndices[i] + " : ");
+      // }
+      // System.out.println();
       
       Piece pieceToMove = getPieceAt(fromColumn, fromRow);
       Piece moveToSpace = getPieceAt(toColumn, toRow);
@@ -235,7 +240,22 @@ public class Board {
       return true; //all conditions for a checkmate were false
    }
 
-   public void test(){
-      System.out.println(capturedPiece);
+   public boolean test(String color, int[] indicies){
+      boolean status = true;
+      if(capturedPiece != null) {
+         System.out.println(capturedPiece.getColor());
+      }
+      if(isInCheck(color)) {
+         // if after you make the move and ur still in check, revert the move
+         chessBoard[indicies[1]][indicies[0]] = chessBoard[indicies[3]][indicies[2]];
+         if(capturedPiece != null){
+            chessBoard[indicies[3]][indicies[2]] = capturedPiece;
+         } else {
+            chessBoard[indicies[3]][indicies[2]] = null;
+         }
+      } else {
+         status = false;
+      }
+      return status;
    }
 }

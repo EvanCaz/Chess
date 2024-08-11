@@ -136,10 +136,13 @@ private static void movePiece(JPanel first, JPanel second) {
     try {
         Piece piece = board.getPieceAt(indicies[0], indicies[1]);
         if ((turn == 1 && piece.getColor().equals("white")) && (board.isInCheck("white") == false) && (board.isInCheckMate("white") == false) || (turn == 0 && piece.getColor().equals("black")) && (board.isInCheck("black") == false) && (board.isInCheckMate("white") == false)) {
-            board.test();
             moveSuccessful = board.movePiece(indicies);
         } else if (board.isInCheck("white") == true || board.isInCheck("black") == true){
-            // need to check and see if the move you make keeps check status
+            moveSuccessful = board.movePiece(indicies);
+            if(board.test("white", indicies) == true){
+                moveSuccessful = false;
+            }
+        
         } 
         
     } catch (NullPointerException e) {
