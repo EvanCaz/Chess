@@ -139,7 +139,7 @@ private static void movePiece(JPanel first, JPanel second) {
             moveSuccessful = board.movePiece(indicies);
         } else if (board.isInCheck("white") == true || board.isInCheck("black") == true){
             moveSuccessful = board.movePiece(indicies);
-            if(board.test("white", indicies) == true){
+            if(board.test("white", indicies) == true || board.test("black", indicies) == true){
                 moveSuccessful = false;
             }
         
